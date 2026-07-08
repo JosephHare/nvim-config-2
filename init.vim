@@ -8,16 +8,9 @@ set ignorecase
 
 let mapleader = ","
 
-try
-    silent !pwd
-    let linux=1
-catch
-    let linux=0
-endtry
-
 function! s:Vviedit()
     tabnew
-    if linux
+    if has("unix")
         tcd /home/joe/.config/nvim/
         e init.vim
     else
@@ -48,7 +41,7 @@ call plug#begin()
     Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
-if linux
+if has("unix")
     luafile /home/joe/.config/nvim/nvim-cmp-setup.lua
     luafile /home/joe/.config/nvim/init-lua.lua
     source /home/joe/.config/nvim/keybinds.vim
