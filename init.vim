@@ -8,10 +8,22 @@ set ignorecase
 
 let mapleader = ","
 
+try
+    silent !pwd
+    let linux=1
+catch
+    let linux=0
+endtry
+
 function! s:Vviedit()
     tabnew
-    tcd C:\Users\josep\AppData\Local\nvim
-    e C:\Users\josep\AppData\Local\nvim\init.vim
+    if linux
+        tcd /home/joe/.config/nvim/
+        e init.vim
+    else
+        tcd C:\Users\josep\AppData\Local\nvim
+        e C:\Users\josep\AppData\Local\nvim\init.vim
+    endif
 endfunction
 command Vviedit call s:Vviedit()
 
@@ -36,9 +48,15 @@ call plug#begin()
     Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
-luafile C:\Users\josep\AppData\Local\nvim\nvim-cmp-setup.lua
-luafile C:\Users\josep\AppData\Local\nvim\init-lua.lua
-source C:\Users\josep\AppData\Local\nvim\keybinds.vim
+if linux
+    luafile /home/joe/.config/nvim/nvim-cmp-setup.lua
+    luafile /home/joe/.config/nvim/init-lua.lua
+    source /home/joe/.config/nvim/keybinds.vim
+else
+    luafile C:\Users\josep\AppData\Local\nvim\nvim-cmp-setup.lua
+    luafile C:\Users\josep\AppData\Local\nvim\init-lua.lua
+    source C:\Users\josep\AppData\Local\nvim\keybinds.vim
+endif
 
 autocmd Filetype css nnoremap <leader>/ mBI/*<space><C-o>A<space>*/<esc>`Blll
 autocmd Filetype css nnoremap <leader>= mB^xxx$xxx`Bhhh
