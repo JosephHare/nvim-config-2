@@ -1,0 +1,9 @@
+{
+    "java": {
+        "prefix": "cout",
+        "body": [
+            "std::cout << ${1:message} << std::endl;$0"
+        ],
+        "description": ""
+    }
+}
